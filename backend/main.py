@@ -6,7 +6,7 @@ import models
 # Create database tables
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Oilseed Advisory Platform")
+app = FastAPI(title="Krishi Saathi Advisory Platform")
 
 import os
 
@@ -36,7 +36,7 @@ app.add_middleware(
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the Oilseed Advisory Platform API"}
+    return {"message": "Welcome to the Krishi Saathi Advisory Platform API"}
 
 from routers import auth, fields, advisory, weather, market
 

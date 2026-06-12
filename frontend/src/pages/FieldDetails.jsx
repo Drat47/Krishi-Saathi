@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import LiveClock from '../components/LiveClock'
+import AgriThemeBackground from '../components/AgriThemeBackground'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts'
@@ -96,40 +97,46 @@ const FieldDetails = () => {
         fetchFieldDetails()
     }, [id])
 
-    if (loading) return <div className="flex h-screen items-center justify-center">Loading...</div>
-    if (!field) return <div className="p-8 text-center">Field not found</div>
+    if (loading) return <div className="flex h-screen items-center justify-center bg-[#051c0e] text-emerald-300">Loading...</div>
+    if (!field) return <div className="p-8 text-center bg-[#051c0e] text-red-400">Field not found</div>
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-transparent relative text-white">
+            <AgriThemeBackground />
             <Navbar />
-            <div className="container mx-auto p-6">
-                <div className="flex items-center justify-between mb-4">
-                    <button onClick={() => navigate('/')} className="text-green-700 hover:underline">← Back to Dashboard</button>
+            <div className="container mx-auto p-6 max-w-7xl relative z-10">
+                <div className="flex items-center justify-between mb-6">
+                    <button 
+                        onClick={() => navigate('/')} 
+                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition active:scale-95 cursor-pointer bg-transparent border-0"
+                    >
+                        &larr; Back to Dashboard
+                    </button>
                     <LiveClock />
                 </div>
 
-                <div className="mb-8 grid gap-6 lg:grid-cols-3">
+                <div className="mb-8 grid gap-6 lg:grid-cols-3 items-start">
                     {/* Main Info Card */}
-                    <div className="lg:col-span-2 rounded-xl bg-white p-6 shadow-md">
+                    <div className="lg:col-span-2 rounded-3xl bg-emerald-900/10 border border-emerald-800/20 p-6 shadow-xl backdrop-blur-md">
                         <div className="mb-6 flex items-start justify-between">
                             <div>
-                                <h1 className="text-3xl font-bold text-gray-800">{field.name}</h1>
-                                <p className="text-gray-500">{field.district} • {field.area_ha} Hectares</p>
+                                <h1 className="text-3xl font-extrabold text-white">{field.name}</h1>
+                                <p className="text-sm text-emerald-200/70 mt-1">{field.district} District &bull; {field.area_ha} Hectares</p>
                             </div>
-                            <span className="rounded-full bg-green-100 px-4 py-1 text-sm font-semibold text-green-800 border border-green-200">
+                            <span className="rounded-full bg-emerald-500/10 px-4 py-1 text-sm font-semibold text-emerald-300 border border-emerald-500/20">
                                 {field.crop_type}
                             </span>
                         </div>
 
                         {/* Tabs */}
-                        <div className="mb-6 flex space-x-4 border-b">
+                        <div className="mb-6 flex space-x-2 bg-emerald-950/80 p-1.5 rounded-2xl border border-emerald-900/50">
                             {['overview', 'analytics', 'advisory'].map((tab) => (
                                 <button
                                     key={tab}
                                     onClick={() => setActiveTab(tab)}
-                                    className={`pb-2 text-sm font-medium capitalize transition ${activeTab === tab
-                                            ? 'border-b-2 border-green-600 text-green-600'
-                                            : 'text-gray-500 hover:text-gray-700'
+                                    className={`flex-1 py-2 rounded-xl text-sm font-bold capitalize transition duration-200 cursor-pointer border-0 ${activeTab === tab
+                                            ? 'bg-emerald-600 text-white shadow-md'
+                                            : 'text-emerald-300/80 hover:text-white bg-transparent'
                                         }`}
                                 >
                                     {tab}
@@ -141,7 +148,7 @@ const FieldDetails = () => {
                         <div className="min-h-[400px]">
                             {activeTab === 'overview' && (
                                 <div className="space-y-6">
-                                    <div className="h-80 w-full overflow-hidden rounded-lg shadow-inner border border-gray-200">
+                                    <div className="h-80 w-full overflow-hidden rounded-2xl shadow-inner border border-emerald-800/20 relative z-0">
                                         <MapContainer center={[field.latitude, field.longitude]} zoom={13} style={{ height: '100%', width: '100%' }}>
                                             <TileLayer
                                                 url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
@@ -152,28 +159,28 @@ const FieldDetails = () => {
                                             </Marker>
                                         </MapContainer>
                                     </div>
-                                    <h3 className="font-semibold text-gray-700">Live Weather Conditions</h3>
+                                    <h3 className="text-lg font-bold text-white mb-2">Live Weather Conditions</h3>
                                     {weather ? (
                                         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                                            <div className="rounded-lg bg-orange-50 p-4 border border-orange-100">
-                                                <p className="text-xs text-orange-600 uppercase font-bold">Temperature</p>
-                                                <p className="text-2xl font-bold">{weather.temperature}{weather.unit_temp}</p>
+                                            <div className="rounded-2xl bg-amber-500/5 p-4 border border-amber-500/20">
+                                                <p className="text-xs text-amber-400 font-bold uppercase tracking-wider mb-1">Temperature</p>
+                                                <p className="text-2xl font-bold text-white">{weather.temperature}{weather.unit_temp}</p>
                                             </div>
-                                            <div className="rounded-lg bg-blue-50 p-4 border border-blue-100">
-                                                <p className="text-xs text-blue-600 uppercase font-bold">Humidity</p>
-                                                <p className="text-2xl font-bold">{weather.humidity}%</p>
+                                            <div className="rounded-2xl bg-emerald-500/5 p-4 border border-emerald-500/20">
+                                                <p className="text-xs text-emerald-400 font-bold uppercase tracking-wider mb-1">Humidity</p>
+                                                <p className="text-2xl font-bold text-white">{weather.humidity}%</p>
                                             </div>
-                                            <div className="rounded-lg bg-gray-50 p-4 border border-gray-200">
-                                                <p className="text-xs text-gray-600 uppercase font-bold">Wind Speed</p>
-                                                <p className="text-2xl font-bold">{weather.wind_speed} <span className="text-sm">{weather.unit_speed}</span></p>
+                                            <div className="rounded-2xl bg-teal-500/5 p-4 border border-teal-500/20">
+                                                <p className="text-xs text-teal-400 font-bold uppercase tracking-wider mb-1">Wind Speed</p>
+                                                <p className="text-2xl font-bold text-white">{weather.wind_speed} <span className="text-xs">{weather.unit_speed}</span></p>
                                             </div>
-                                            <div className="rounded-lg bg-indigo-50 p-4 border border-indigo-100">
-                                                <p className="text-xs text-indigo-600 uppercase font-bold">Rainfall</p>
-                                                <p className="text-2xl font-bold">{weather.rain} mm</p>
+                                            <div className="rounded-2xl bg-indigo-500/5 p-4 border border-indigo-500/20">
+                                                <p className="text-xs text-indigo-400 font-bold uppercase tracking-wider mb-1">Rainfall</p>
+                                                <p className="text-2xl font-bold text-white">{weather.rain} mm</p>
                                             </div>
                                         </div>
                                     ) : (
-                                        <p className="text-gray-500 animate-pulse">Fetching live weather data...</p>
+                                        <p className="text-emerald-300 animate-pulse text-sm">Fetching live weather data...</p>
                                     )}
                                 </div>
                             )}
@@ -181,31 +188,33 @@ const FieldDetails = () => {
                             {activeTab === 'analytics' && (
                                 <div className="space-y-8">
                                     <div>
-                                        <h3 className="mb-4 font-semibold text-gray-700">Historical Yield vs Benchmark (kg/ha)</h3>
+                                        <h3 className="mb-4 font-bold text-emerald-200 text-sm uppercase tracking-wider">Historical Yield vs Benchmark (kg/ha)</h3>
                                         <div className="h-64 w-full">
                                             <ResponsiveContainer width="100%" height="100%">
                                                 <LineChart data={yieldData}>
-                                                    <CartesianGrid strokeDasharray="3 3" />
-                                                    <XAxis dataKey="year" />
-                                                    <YAxis />
-                                                    <Tooltip />
+                                                    <CartesianGrid stroke="#113f24" strokeDasharray="3 3" />
+                                                    <XAxis dataKey="year" stroke="#34d399" tick={{ fontSize: 11 }} />
+                                                    <YAxis stroke="#34d399" tick={{ fontSize: 11 }} />
+                                                    <Tooltip contentStyle={{ backgroundColor: '#022c22', borderColor: '#059669', borderRadius: '12px', color: '#fff' }} />
                                                     <Legend />
-                                                    <Line type="monotone" dataKey="actual" stroke="#16a34a" name="Actual Yield" strokeWidth={2} />
-                                                    <Line type="monotone" dataKey="benchmark" stroke="#ca8a04" name="Benchmark" strokeDasharray="5 5" />
+                                                    <Line type="monotone" dataKey="actual" stroke="#10b981" name="Actual Yield" strokeWidth={3} activeDot={{ r: 8 }} />
+                                                    <Line type="monotone" dataKey="benchmark" stroke="#f59e0b" name="Benchmark" strokeDasharray="5 5" strokeWidth={2} />
                                                 </LineChart>
                                             </ResponsiveContainer>
                                         </div>
                                     </div>
                                     <div>
-                                        <h3 className="mb-4 font-semibold text-gray-700">Comparative Performance</h3>
+                                        <h3 className="mb-4 font-bold text-emerald-200 text-sm uppercase tracking-wider">Comparative Performance</h3>
                                         <div className="h-64 w-full">
                                             <ResponsiveContainer width="100%" height="100%">
                                                 <BarChart data={comparativeData}>
-                                                    <CartesianGrid strokeDasharray="3 3" />
-                                                    <XAxis dataKey="name" />
-                                                    <YAxis />
-                                                    <Tooltip />
-                                                    <Bar dataKey="value" fill="#16a34a" radius={[4, 4, 0, 0]} />
+                                                    <CartesianGrid stroke="#113f24" strokeDasharray="3 3" />
+                                                    <XAxis dataKey="name" stroke="#34d399" tick={{ fontSize: 11 }} />
+                                                    <YAxis stroke="#34d399" tick={{ fontSize: 11 }} />
+                                                    <Tooltip contentStyle={{ backgroundColor: '#022c22', borderColor: '#059669', borderRadius: '12px', color: '#fff' }} />
+                                                    <Bar dataKey="value" fill="#10b981" radius={[8, 8, 0, 0]}>
+                                                        <Legend />
+                                                    </Bar>
                                                 </BarChart>
                                             </ResponsiveContainer>
                                         </div>
@@ -216,55 +225,66 @@ const FieldDetails = () => {
                             {activeTab === 'advisory' && (
                                 <div className="space-y-4">
                                     {advisories.map((adv) => (
-                                        <div key={adv.id} className={`rounded-lg border-l-4 p-4 shadow-sm ${adv.priority === 'high' ? 'border-red-500 bg-red-50' :
-                                                adv.priority === 'medium' ? 'border-yellow-500 bg-yellow-50' :
-                                                    'border-green-500 bg-green-50'
-                                            }`}>
+                                        <div key={adv.id} className={`rounded-2xl border border-l-4 p-5 backdrop-blur-sm transition hover:brightness-110 duration-200 ${
+                                            adv.priority === 'high' ? 'border-red-500/40 border-l-red-500 bg-red-950/10' :
+                                            adv.priority === 'medium' ? 'border-amber-500/40 border-l-amber-500 bg-amber-950/10' :
+                                            'border-emerald-500/40 border-l-emerald-500 bg-emerald-950/10'
+                                        }`}>
                                             <div className="flex items-center justify-between mb-2">
-                                                <span className={`text-xs font-bold uppercase ${adv.priority === 'high' ? 'text-red-600' :
-                                                        adv.priority === 'medium' ? 'text-yellow-600' :
-                                                            'text-green-600'
-                                                    }`}>
-                                                    {adv.priority} Priority • {adv.category}
+                                                <span className={`text-xs font-bold uppercase tracking-wider ${
+                                                    adv.priority === 'high' ? 'text-red-400' :
+                                                    adv.priority === 'medium' ? 'text-amber-400' :
+                                                    'text-emerald-400'
+                                                }`}>
+                                                    🔥 {adv.priority} Priority &bull; {adv.category}
                                                 </span>
-                                                <span className="text-xs text-gray-500">{new Date(adv.date).toLocaleDateString()}</span>
+                                                <span className="text-xs text-emerald-300/60 font-mono">{new Date(adv.date).toLocaleDateString()}</span>
                                             </div>
-                                            <p className="text-gray-800">{adv.content}</p>
+                                            <p className="text-emerald-100 text-sm leading-relaxed">{adv.content}</p>
                                         </div>
                                     ))}
-                                    {advisories.length === 0 && <p className="text-gray-500 italic">No active advisories generated yet.</p>}
+                                    {advisories.length === 0 && (
+                                        <div className="py-12 text-center text-emerald-300/50">
+                                            No active advisories generated yet.
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
                     </div>
 
                     {/* Sidebar Stats */}
-                    <div className="space-y-6">
-                        <div className="rounded-xl bg-gradient-to-br from-green-600 to-green-800 p-6 text-white shadow-lg">
-                            <h3 className="mb-1 text-green-100 text-sm uppercase">Predicted Yield</h3>
+                    <div className="space-y-6 w-full">
+                        <div className="rounded-3xl bg-gradient-to-br from-emerald-800 to-green-950 p-6 text-white shadow-xl border border-emerald-700/30 relative overflow-hidden">
+                            <div className="absolute right-0 bottom-0 opacity-[0.04] text-8xl translate-y-6 translate-x-6">
+                                📉
+                            </div>
+                            <h3 className="mb-1 text-emerald-300 text-xs font-bold uppercase tracking-wider">Predicted AI Yield</h3>
                             <div className="flex items-baseline space-x-2">
-                                <span className="text-4xl font-bold">1,850</span>
-                                <span className="text-green-200">kg/ha</span>
+                                <span className="text-4xl font-extrabold text-white">1,850</span>
+                                <span className="text-emerald-300 font-bold">kg/ha</span>
                             </div>
-                            <div className="mt-4 h-2 w-full rounded-full bg-green-900/40">
-                                <div className="h-2 w-[75%] rounded-full bg-yellow-400"></div>
+                            <div className="mt-4 h-2 w-full rounded-full bg-emerald-950/50 overflow-hidden">
+                                <div className="h-2 w-[74%] rounded-full bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.5)]"></div>
                             </div>
-                            <p className="mt-2 text-xs text-green-100 flex justify-between">
-                                <span>Current Potential</span>
-                                <span>75% of Optimal</span>
+                            <p className="mt-3.5 text-xs text-emerald-200/80 flex justify-between font-medium">
+                                <span>Current Target Potential</span>
+                                <span className="text-amber-300 font-bold">74% of Optimal</span>
                             </p>
                         </div>
 
-                        <div className="rounded-xl bg-white p-6 shadow-md">
-                            <h3 className="mb-4 font-bold text-gray-800">Action Plan</h3>
-                            <ul className="space-y-3">
+                        <div className="rounded-3xl bg-emerald-900/10 border border-emerald-800/20 p-6 shadow-xl backdrop-blur-md text-white">
+                            <h3 className="mb-4 font-bold text-white flex items-center gap-2">
+                                <span>📋</span> Recommended Action Plan
+                            </h3>
+                            <ul className="space-y-4">
                                 <li className="flex items-start">
-                                    <span className="mr-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-600">1</span>
-                                    <span className="text-sm text-gray-600">Schedule irrigation for tomorrow morning (40mm).</span>
+                                    <span className="mr-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-500/20 border border-blue-500/30 text-xs font-bold text-blue-300">1</span>
+                                    <span className="text-sm text-emerald-100/90 leading-relaxed">Schedule field irrigation for tomorrow morning (**40mm** supply required).</span>
                                 </li>
                                 <li className="flex items-start">
-                                    <span className="mr-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-100 text-xs font-bold text-orange-600">2</span>
-                                    <span className="text-sm text-gray-600">Apply NPK 20:20:20 fertilizer within 3 days.</span>
+                                    <span className="mr-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-500/20 border border-amber-500/30 text-xs font-bold text-amber-300">2</span>
+                                    <span className="text-sm text-emerald-100/90 leading-relaxed">Apply NPK **20:20:20** dry fertilizer mixture within the next 3 days.</span>
                                 </li>
                             </ul>
                         </div>

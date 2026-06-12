@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./data/oilseed.db")
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./data/krishi_saathi.db")
 
 # Render sometimes uses postgres:// but SQLAlchemy requires postgresql://
 if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):

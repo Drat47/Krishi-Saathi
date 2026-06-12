@@ -1,6 +1,6 @@
-# Krishi Sathi - Backend API
+# Krishi Saathi - Backend API
 
-The backend service for **Krishi Sathi**, providing RESTful APIs for user management, field data, and advisory generation. Built with FastAPI and SQLite.
+The backend service for **Krishi Saathi**, providing RESTful APIs for user management, field data, and advisory generation. Built with FastAPI and SQLite.
 
 ## 🚀 Getting Started
 

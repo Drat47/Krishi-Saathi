@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { API_URL } from '../config'
-import BackgroundImage from '../components/BackgroundImage'
+import AgriThemeBackground from '../components/AgriThemeBackground'
 
 const Register = () => {
     const [username, setUsername] = useState('')
@@ -22,28 +22,31 @@ const Register = () => {
 
     return (
         <>
-            <BackgroundImage />
+            <AgriThemeBackground />
             <div className="flex min-h-screen items-center justify-center p-4 text-white">
-                <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white/10 p-8 shadow-2xl backdrop-blur-lg border border-white/20">
+                <div className="w-full max-w-md overflow-hidden rounded-3xl bg-black/40 p-8 shadow-2xl backdrop-blur-xl border border-white/10 animate-fade-in-up">
                     <div className="mb-8 text-center">
-                        <h1 className="text-4xl font-bold text-yellow-500 mb-2">Krishi Sathi</h1>
-                        <p className="text-gray-200">Join the Revolution</p>
+                        <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-500/30 text-3xl mb-3">
+                            🌱
+                        </div>
+                        <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-400 to-amber-300 bg-clip-text text-transparent mb-1">Krishi Saathi</h1>
+                        <p className="text-sm text-emerald-100/70">Join the Precision Advisory Revolution</p>
                     </div>
 
-                    <h2 className="mb-6 text-center text-2xl font-semibold">Create Account</h2>
+                    <h2 className="mb-6 text-center text-xl font-semibold text-white/90">Create Account</h2>
 
                     {error && (
-                        <div className="mb-4 rounded bg-red-500/20 px-4 py-2 text-center text-red-200 border border-red-500/30">
+                        <div className="mb-4 rounded-xl bg-red-500/20 px-4 py-3 text-center text-sm text-red-200 border border-red-500/30">
                             {error}
                         </div>
                     )}
 
-                    <form onSubmit={handleRegister} className="space-y-6">
+                    <form onSubmit={handleRegister} className="space-y-5">
                         <div>
-                            <label className="mb-1 block text-sm font-medium text-gray-300">Username</label>
+                            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-emerald-300/80">Username</label>
                             <input
                                 type="text"
-                                className="w-full rounded-lg bg-white/5 px-4 py-3 text-white placeholder-gray-400 border border-white/10 focus:border-yellow-500 focus:outline-none focus:ring-1 focus:ring-yellow-500 transition"
+                                className="w-full rounded-xl bg-white/5 px-4 py-3 text-white placeholder-gray-500 border border-white/10 focus:border-emerald-400 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-emerald-400 transition duration-200"
                                 placeholder="Choose a username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
@@ -51,10 +54,10 @@ const Register = () => {
                             />
                         </div>
                         <div>
-                            <label className="mb-1 block text-sm font-medium text-gray-300">Password</label>
+                            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-emerald-300/80">Password</label>
                             <input
                                 type="password"
-                                className="w-full rounded-lg bg-white/5 px-4 py-3 text-white placeholder-gray-400 border border-white/10 focus:border-yellow-500 focus:outline-none focus:ring-1 focus:ring-yellow-500 transition"
+                                className="w-full rounded-xl bg-white/5 px-4 py-3 text-white placeholder-gray-500 border border-white/10 focus:border-emerald-400 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-emerald-400 transition duration-200"
                                 placeholder="Create a password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -63,7 +66,7 @@ const Register = () => {
                         </div>
                         <button
                             type="submit"
-                            className="w-full rounded-lg bg-gradient-to-r from-yellow-500 to-green-600 py-3 font-semibold text-white shadow-lg transition hover:from-yellow-600 hover:to-green-700 active:scale-95"
+                            className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 py-3 font-semibold text-white shadow-lg transition duration-200 hover:shadow-emerald-500/20 hover:brightness-110 active:scale-98"
                         >
                             Sign Up
                         </button>
@@ -71,7 +74,7 @@ const Register = () => {
 
                     <div className="mt-8 text-center text-sm text-gray-400">
                         Already have an account?{' '}
-                        <Link to="/login" className="text-yellow-400 hover:text-yellow-300 font-medium">
+                        <Link to="/login" className="text-emerald-400 hover:text-emerald-300 font-semibold transition">
                             Login Here
                         </Link>
                     </div>

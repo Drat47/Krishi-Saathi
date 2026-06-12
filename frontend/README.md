@@ -1,6 +1,6 @@
-# Krishi Sathi - Frontend
+# Krishi Saathi - Frontend
 
-This is the frontend application for the **Krishi Sathi** AI-Enabled Precision Advisory Platform, built with React, Vite, and Tailwind CSS.
+This is the frontend application for the **Krishi Saathi** AI-Enabled Precision Advisory Platform, built with React, Vite, and Tailwind CSS.
 
 ## 🚀 Getting Started
 

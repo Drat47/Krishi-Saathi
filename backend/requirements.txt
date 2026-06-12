@@ -7,5 +7,9 @@ passlib[bcrypt]
 bcrypt
 python-multipart
 psycopg2-binary
+<<<<<<< HEAD
 requests
 httpx
+=======
+requests
+>>>>>>> 8484d06 (feat: rename project to Krishi Saathi and update UI with agricultural theme)

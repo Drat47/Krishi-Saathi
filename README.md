@@ -1,4 +1,4 @@
-# Krishi Sathi: AI-Enabled Precision Advisory Platform
+# Krishi Saathi: AI-Enabled Precision Advisory Platform
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
 [![FastAPI](https://img.shields.io/badge/FastAPI-v0.100.0+-009688.svg?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
@@ -6,7 +6,7 @@
 [![Docker](https://img.shields.io/badge/Docker-Supported-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](#)
 
-**Krishi Sathi** (Hindi for *Farmer's Friend*) is a comprehensive precision agriculture platform designed to bridge the yield gap in Indian oilseed cultivation. By leveraging machine learning models, real-time satellite imagery simulation, GIS mapping, and live weather conditions, the platform empowers farmers and agricultural officials with actionable, personalized advisories to optimize productivity, conserve resources, and predict yields.
+**Krishi Saathi** (Hindi for *Farmer's Friend*) is a comprehensive precision agriculture platform designed to bridge the yield gap in Indian oilseed cultivation. By leveraging machine learning models, real-time satellite imagery simulation, GIS mapping, and live weather conditions, the platform empowers farmers and agricultural officials with actionable, personalized advisories to optimize productivity, conserve resources, and predict yields.
 
 ---
 
@@ -42,7 +42,7 @@
 
 ## 🏗️ System Architecture
 
-The Krishi Sathi platform is structured as a modular microservices architecture, promoting high scalability, clean isolation of concerns, and ease of deployment:
+The Krishi Saathi platform is structured as a modular microservices architecture, promoting high scalability, clean isolation of concerns, and ease of deployment:
 
 ```mermaid
 graph TD
@@ -94,7 +94,7 @@ graph TD
 - **Science & Modeling**: NumPy (numerical variance and crop gap prediction modelling)
 
 ### Database
-- **Development**: SQLite (`oilseed.db`)
+- **Development**: SQLite (`krishi_saathi.db`)
 - **Production**: PostgreSQL (Render PostgreSQL / Neon / Supabase)
 
 ---
@@ -218,7 +218,7 @@ The application services load settings dynamically from environment variables:
 
 | Service | Variable Name | Default Value | Description |
 | :--- | :--- | :--- | :--- |
-| **Backend** | `DATABASE_URL` | `sqlite:///./data/oilseed.db` | Connection string for database (PostgreSQL in production) |
+| **Backend** | `DATABASE_URL` | `sqlite:///./data/krishi_saathi.db` | Connection string for database (PostgreSQL in production) |
 | **Backend** | `ALLOWED_ORIGINS` | `http://localhost:3000` | Comma-separated list of origins permitted to access API |
 | **Backend** | `ML_SERVICE_URL` | `http://localhost:5000` | Connection address for the ML Inference Service |
 | **Frontend** | `VITE_API_URL` | `http://localhost:8000` | Target URL for making API requests to backend |

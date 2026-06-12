@@ -3,20 +3,20 @@ version: '3.8'
 services:
   backend:
     build: ./backend
-    container_name: oilseed_backend
+    container_name: krishi_saathi_backend
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
     environment:
-      - DATABASE_URL=sqlite:///./data/oilseed.db
+      - DATABASE_URL=sqlite:///./data/krishi_saathi.db
       - ML_SERVICE_URL=http://ml_service:5000
     depends_on:
       - ml_service
 
   frontend:
     build: ./frontend
-    container_name: oilseed_frontend
+    container_name: krishi_saathi_frontend
     ports:
       - "3000:3000"
     volumes:
@@ -27,7 +27,7 @@ services:
 
   ml_service:
     build: ./ml_service
-    container_name: oilseed_ml_service
+    container_name: krishi_saathi_ml_service
     ports:
       - "5000:5000"
     volumes:

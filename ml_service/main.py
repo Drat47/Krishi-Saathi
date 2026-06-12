@@ -5,7 +5,7 @@ import numpy as np
 # import joblib
 # model = joblib.load('model.pkl')
 
-app = FastAPI(title="Oilseed Yield Prediction Service")
+app = FastAPI(title="Krishi Saathi Yield Prediction Service")
 
 class PredictionRequest(BaseModel):
     field_id: int
@@ -26,7 +26,7 @@ def predict(request: PredictionRequest):
     # Mock prediction logic
     # Real logic would use request.features to feed into the model
     
-    # Random realistic yield for oilseeds (kg/ha)
+    # Random realistic yield for crops (kg/ha)
     base_yield = 1500
     variation = np.random.normal(0, 200)
     prediction = max(0, base_yield + variation)

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { API_URL } from '../config'
-import { motion } from 'framer-motion'
 
 const MarketTicker = () => {
     const [prices, setPrices] = useState([])
@@ -9,10 +8,6 @@ const MarketTicker = () => {
     useEffect(() => {
         const fetchPrices = async () => {
             try {
-                // In real app, authenticated call, but for ticker let's mock or use public endpoint
-                // We'll use the one we created. Needs auth token? 
-                // Let's assume public or use token if available. 
-                // For simplicity, we'll try to get it without auth or assume token is present in localStorage
                 const token = localStorage.getItem('token')
                 if (!token) return
 
@@ -35,22 +30,24 @@ const MarketTicker = () => {
     if (prices.length === 0) return null
 
     return (
-        <div className="bg-green-900 text-white overflow-hidden py-2 shadow-inner">
+        <div className="bg-emerald-950/40 border-y border-emerald-800/10 text-white overflow-hidden py-3 backdrop-blur-sm relative z-10">
             <div className="flex animate-marquee whitespace-nowrap">
-                {prices.map((item, index) => (
-                    <span key={index} className="mx-6 flex items-center space-x-2 text-sm font-medium">
-                        <span className="text-green-300">{item.crop}:</span>
-                        <span>₹{item.price}/q</span>
-                        <span className={item.change > 0 ? 'text-green-400' : 'text-red-400'}>
-                            {item.change > 0 ? '▲' : '▼'} {item.change}
+                {prices.map((item, index) => {
+                    const isUp = item.trend ? item.trend === 'up' : (item.change ? !String(item.change).includes('-') && !String(item.change).includes('▼') : true);
+                    return (
+                        <span key={index} className="mx-8 flex items-center space-x-3.5 text-sm font-semibold tracking-wide">
+                            <span className="text-emerald-300 uppercase">🌾 {item.crop}</span>
+                            <span className="text-white">₹{item.price}/q</span>
+                            <span className={`inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full ${
+                                isUp ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
+                            }`}>
+                                {isUp ? '▲' : '▼'} {item.change || '0%'}
+                            </span>
+                            <span className="text-emerald-800/30">|</span>
                         </span>
-                    </span>
-                ))}
+                    );
+                })}
             </div>
-            {/* Duplicate for seamless scrolling effect if we implemented pure CSS marquee, 
-                for now standard flex is okay or we check if Framer Motion is installed.
-                I installed recharts, but not framer-motion. I'll stick to simple CSS or use index.css
-            */}
         </div>
     )
 }
