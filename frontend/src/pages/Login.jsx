@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
+import { API_URL } from '../config'
 import BackgroundImage from '../components/BackgroundImage'
 
 const Login = () => {
@@ -16,7 +17,7 @@ const Login = () => {
             formData.append('username', username)
             formData.append('password', password)
 
-            const response = await axios.post('http://localhost:8000/auth/token', formData)
+            const response = await axios.post(`${API_URL}/auth/token`, formData)
             localStorage.setItem('token', response.data.access_token)
             localStorage.setItem('username', username)
             navigate('/')

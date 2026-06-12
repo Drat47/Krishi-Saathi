@@ -1,0 +1,28 @@
+services:
+  # ML Inference Service
+  - type: web
+    name: krishi-saathi-ml
+    env: python
+    plan: free
+    rootDir: ml_service
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+
+  # Backend Web Service
+  - type: web
+    name: krishi-saathi-backend
+    env: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ML_SERVICE_URL
+        fromService:
+          name: krishi-saathi-ml
+          type: web
+          property: host
+      - key: ALLOWED_ORIGINS
+        value: "*"
+      - key: DATABASE_URL
+        value: "" # Defaults to SQLite, can be set to a Render PostgreSQL database URL

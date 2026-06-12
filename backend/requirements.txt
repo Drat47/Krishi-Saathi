@@ -6,3 +6,4 @@ python-jose[cryptography]
 passlib[bcrypt]
 python-multipart
 # SQLite is built-in, but SQLAlchemy is needed
+psycopg2-binary

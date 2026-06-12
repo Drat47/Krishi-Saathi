@@ -8,16 +8,28 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Oilseed Advisory Platform")
 
+import os
+
 # CORS setup
-origins = [
-    "http://localhost:3000",
-    "http://localhost",
-]
+origins_env = os.getenv("ALLOWED_ORIGINS", "")
+if origins_env:
+    if origins_env == "*":
+        origins = ["*"]
+        allow_credentials = False
+    else:
+        origins = [o.strip() for o in origins_env.split(",") if o.strip()]
+        allow_credentials = True
+else:
+    origins = [
+        "http://localhost:3000",
+        "http://localhost",
+    ]
+    allow_credentials = True
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=True,
+    allow_credentials=allow_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )

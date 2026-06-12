@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { API_URL } from '../config'
 import { motion } from 'framer-motion'
 
 const MarketTicker = () => {
@@ -15,7 +16,7 @@ const MarketTicker = () => {
                 const token = localStorage.getItem('token')
                 if (!token) return
 
-                const response = await axios.get('http://localhost:8000/market/prices', {
+                const response = await axios.get(`${API_URL}/market/prices`, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
                 setPrices(response.data)

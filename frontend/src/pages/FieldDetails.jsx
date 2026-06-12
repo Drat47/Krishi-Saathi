@@ -6,6 +6,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts'
 import axios from 'axios'
+import { API_URL } from '../config'
 import L from 'leaflet'
 
 // Fix for default marker icons in React-Leaflet
@@ -52,7 +53,7 @@ const FieldDetails = () => {
                 const token = localStorage.getItem('token')
 
                 // Fetch field data
-                const response = await axios.get('http://localhost:8000/fields/', {
+                const response = await axios.get(`${API_URL}/fields/`, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
                 const foundField = response.data.find(f => f.id === parseInt(id))
@@ -61,7 +62,7 @@ const FieldDetails = () => {
                 // Fetch Weather Data
                 if (foundField) {
                     try {
-                        const weatherResponse = await axios.get(`http://localhost:8000/weather/?latitude=${foundField.latitude}&longitude=${foundField.longitude}`, {
+                        const weatherResponse = await axios.get(`${API_URL}/weather/?latitude=${foundField.latitude}&longitude=${foundField.longitude}`, {
                             headers: { Authorization: `Bearer ${token}` }
                         })
                         setWeather(weatherResponse.data)
@@ -71,16 +72,16 @@ const FieldDetails = () => {
                 }
 
                 // Fetch Advisory
-                const advResponse = await axios.get(`http://localhost:8000/advisory/${id}`, {
+                const advResponse = await axios.get(`${API_URL}/advisory/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
                 setAdvisories(advResponse.data)
 
                 if (advResponse.data.length === 0) {
-                    await axios.post(`http://localhost:8000/advisory/${id}`, {}, {
+                    await axios.post(`${API_URL}/advisory/${id}`, {}, {
                         headers: { Authorization: `Bearer ${token}` }
                     })
-                    const advResponseNew = await axios.get(`http://localhost:8000/advisory/${id}`, {
+                    const advResponseNew = await axios.get(`${API_URL}/advisory/${id}`, {
                         headers: { Authorization: `Bearer ${token}` }
                     })
                     setAdvisories(advResponseNew.data)

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { API_URL } from '../config'
 import Navbar from '../components/Navbar'
 import AddFieldModal from '../components/AddFieldModal'
 import MarketTicker from '../components/MarketTicker'
@@ -12,7 +13,7 @@ const Dashboard = () => {
     const fetchFields = async () => {
         try {
             const token = localStorage.getItem('token')
-            const response = await axios.get('http://localhost:8000/fields/', {
+            const response = await axios.get(`${API_URL}/fields/`, {
                 headers: { Authorization: `Bearer ${token}` }
             })
             setFields(response.data)
@@ -30,7 +31,7 @@ const Dashboard = () => {
     const handleAddField = async (fieldData) => {
         try {
             const token = localStorage.getItem('token')
-            await axios.post('http://localhost:8000/fields/', fieldData, {
+            await axios.post(`${API_URL}/fields/`, fieldData, {
                 headers: { Authorization: `Bearer ${token}` }
             })
             setIsModalOpen(false)

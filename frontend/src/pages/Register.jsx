@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
+import { API_URL } from '../config'
 import BackgroundImage from '../components/BackgroundImage'
 
 const Register = () => {
@@ -12,7 +13,7 @@ const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault()
         try {
-            await axios.post('http://localhost:8000/auth/register', { username, password })
+            await axios.post(`${API_URL}/auth/register`, { username, password })
             navigate('/login')
         } catch (err) {
             setError('Registration failed. Username might be taken.')
