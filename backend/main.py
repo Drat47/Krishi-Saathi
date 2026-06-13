@@ -6,6 +6,13 @@ import models
 # Create database tables
 models.Base.metadata.create_all(bind=engine)
 
+# Seed database with default admin user if not already present
+try:
+    from seed import create_admin
+    create_admin()
+except Exception as e:
+    print(f"Seeding failed: {e}")
+
 app = FastAPI(title="Krishi Saathi Advisory Platform")
 
 import os
