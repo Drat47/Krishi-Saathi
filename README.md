@@ -1,11 +1,5 @@
 # Krishi Saathi: AI-Enabled Precision Advisory Platform
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
-[![FastAPI](https://img.shields.io/badge/FastAPI-v0.100.0+-009688.svg?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-v18.0+-61DAFB.svg?style=flat&logo=react&logoColor=black)](https://react.dev)
-[![Docker](https://img.shields.io/badge/Docker-Supported-2496ED.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](#)
-
 **Krishi Saathi** (Hindi for *Farmer's Friend*) is a comprehensive precision agriculture platform designed to bridge the yield gap in Indian oilseed cultivation. By leveraging machine learning models, real-time satellite imagery simulation, GIS mapping, and live weather conditions, the platform empowers farmers and agricultural officials with actionable, personalized advisories to optimize productivity, conserve resources, and predict yields.
 
 Developed by **Dharmesh Singhal**, this project provides a robust, scalable multi-service architecture ready for production deployment.
