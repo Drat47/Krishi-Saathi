@@ -8,6 +8,16 @@
 
 **Krishi Saathi** (Hindi for *Farmer's Friend*) is a comprehensive precision agriculture platform designed to bridge the yield gap in Indian oilseed cultivation. By leveraging machine learning models, real-time satellite imagery simulation, GIS mapping, and live weather conditions, the platform empowers farmers and agricultural officials with actionable, personalized advisories to optimize productivity, conserve resources, and predict yields.
 
+Developed by **Dharmesh Singhal**, this project provides a robust, scalable multi-service architecture ready for production deployment.
+
+---
+
+## 🚀 Live Deployments
+
+*   **Frontend Web Application (Vercel):** [https://krishi-saathi-git-main-drat47s-projects.vercel.app/](https://krishi-saathi-git-main-drat47s-projects.vercel.app/)
+*   **Backend REST API Service (Render):** [https://krishi-saathi-bb2a.onrender.com](https://krishi-saathi-bb2a.onrender.com)
+*   **Interactive API Documentation (Swagger UI):** [https://krishi-saathi-bb2a.onrender.com/docs](https://krishi-saathi-bb2a.onrender.com/docs)
+
 ---
 
 ## 📖 Table of Contents
@@ -21,22 +31,20 @@
     - [Manual Local Development](#manual-local-development)
 6. [Configuration & Environment Variables](#-configuration--environment-variables)
 7. [Deployment Guide](#-deployment-guide)
-    - [Backend & ML Service (Render)](#backend--ml-service-render)
-    - [Frontend (Vercel)](#frontend-vercel)
 8. [API Endpoints & Interactive Documentation](#-api-endpoints--interactive-documentation)
-9. [Development & Contributing](#-development--contributing)
+9. [Author](#-author)
 
 ---
 
 ## 🌟 Core Features
 
-- **🌾 Interactive Farmer Dashboard**: Centralized hub presenting a comprehensive view of all registered farm fields, land dimensions, active crops, and district details.
-- **🛰️ GIS Satellite Mapping**: Built-in Leaflet-based geospatial maps utilizing Esri High-Resolution World Imagery tiles to visually demarcate, zoom, and interact with field coordinates.
-- **📊 Interactive Yield Analytics**: Historical vs. benchmark yield comparisons using visual line charts and district/state/global benchmarking bar graphs (rendered responsively with Recharts).
-- **☁️ Open-Meteo Weather API Integration**: Fetches real-time, location-based current weather parameters (temperature, relative humidity, rain precipitation, wind speed) based on the field's latitude and longitude.
-- **🤖 AI-Driven Precision Advisories**: Custom ML Service that computes crop yield predictions, evaluates confidence, calculates yield gaps compared to optimal potential, and generates localized category-based recommendations (Irrigation, Fertilizer application, Pest management).
-- **📈 Indian Mandi Price Ticker**: Real-time ticker simulating live crop price listings and trend movements (up/down) for essential crops (Soybean, Groundnut, Mustard, Sunflower, Cotton).
-- **🔐 Secure Role-Based Access**: Role-based access control (Farmer, Admin, Official) protected with JWT (JSON Web Token) bearer authentication, hashed passwords (bcrypt), and secure registration protocols.
+*   **🌾 Interactive Farmer Dashboard**: Centralized hub presenting a comprehensive view of all registered farm fields, land dimensions, active crops, and district details.
+*   **🛰️ GIS Satellite Mapping**: Built-in Leaflet-based geospatial maps utilizing Esri High-Resolution World Imagery tiles to visually demarcate, zoom, and interact with field coordinates.
+*   **📊 Interactive Yield Analytics**: Historical vs. benchmark yield comparisons using visual line charts and district/state/global benchmarking bar graphs (rendered responsively with Recharts).
+*   **☁️ Open-Meteo Weather API Integration**: Fetches real-time, location-based current weather parameters (temperature, relative humidity, rain precipitation, wind speed) based on the field's latitude and longitude.
+*   **🤖 AI-Driven Precision Advisories**: Custom ML Service that computes crop yield predictions, evaluates confidence, calculates yield gaps compared to optimal potential, and generates localized category-based recommendations (Irrigation, Fertilizer application, Pest management).
+*   **📈 Indian Mandi Price Ticker**: Real-time ticker simulating live crop price listings and trend movements (up/down) for essential crops (Soybean, Groundnut, Mustard, Sunflower, Cotton).
+*   **🔐 Secure Role-Based Access**: Role-based access control (Farmer, Admin, Official) protected with JWT (JSON Web Token) bearer authentication, hashed passwords (bcrypt), and secure registration protocols.
 
 ---
 
@@ -46,11 +54,11 @@ The Krishi Saathi platform is structured as a modular microservices architecture
 
 ```mermaid
 graph TD
-    Client[Browser Client: React + Vite + Tailwind CSS]
+    Client["Browser Client (React + Vite)"]
     
     subgraph Application services
-        Backend[Backend REST API: FastAPI]
-        ML[ML Inference Service: FastAPI + NumPy]
+        Backend["Backend REST API (FastAPI)"]
+        ML["ML Inference Service (FastAPI + NumPy)"]
     end
     
     subgraph Storage Layer
@@ -68,7 +76,7 @@ graph TD
 ```
 
 ### Flow of Data:
-1. **User Authentication**: Client obtains a JWT access token via `/auth/token`. Subseqent API requests include the token in HTTP Headers (`Authorization: Bearer <token>`).
+1. **User Authentication**: Client obtains a JWT access token via `/auth/token`. Subsequent API requests include the token in HTTP Headers (`Authorization: Bearer <token>`).
 2. **Weather Fetching**: Backend acts as a secure proxy to request current location forecasts from Open-Meteo API using the field's GPS coordinates.
 3. **Advisory Generation**: When generating an advisory, the Backend compiles field information and calls the ML Inference service's `/predict` endpoint to process yield gap modeling, returning structured crop recommendations.
 
@@ -78,7 +86,7 @@ graph TD
 
 ### Frontend
 - **Framework**: React.js v18 (built with [Vite](https://vitejs.dev/))
-- **Styling**: Tailwind CSS for responsive grid layouts and animations
+- **Styling**: Vanilla CSS with customized modern theme grids and layouts
 - **Mapping**: Leaflet API via [React-Leaflet](https://react-leaflet.js.org/) (Satellite layer sourced from Esri World Imagery)
 - **Charts & Visuals**: Recharts (fully responsive SVG charts)
 - **State & Networking**: Axios with localStorage token persistence
@@ -245,7 +253,7 @@ The code is prepared out-of-the-box for production deployment:
    - **Root Directory**: `frontend`
    - **Framework Preset**: `Vite`
 4. Expand **Environment Variables** and add:
-   - `VITE_API_URL` = `<your-render-backend-url>` (e.g., `https://krishi-saathi-backend.onrender.com`)
+   - `VITE_API_URL` = `https://krishi-saathi-bb2a.onrender.com`
 5. Click **Deploy**. Vercel will use the [vercel.json](frontend/vercel.json) configuration to ensure all client side routes resolve to `index.html` (SPA routing compatibility).
 
 ---
@@ -254,8 +262,8 @@ The code is prepared out-of-the-box for production deployment:
 
 FastAPI automatically generates interactive document pages detailing schemas, parameters, responses, and authorization endpoints. Once the backend is running, access:
 
-- **Swagger UI**: [http://localhost:8000/docs](http://localhost:8000/docs)
-- **ReDoc**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
+- **Swagger UI**: [https://krishi-saathi-bb2a.onrender.com/docs](https://krishi-saathi-bb2a.onrender.com/docs)
+- **ReDoc**: [https://krishi-saathi-bb2a.onrender.com/redoc](https://krishi-saathi-bb2a.onrender.com/redoc)
 
 ### Summary of Key Endpoints:
 - `POST /auth/register` - Register a new farmer account
@@ -269,15 +277,9 @@ FastAPI automatically generates interactive document pages detailing schemas, pa
 
 ---
 
-## 🤝 Development & Contributing
+## 👤 Author
 
-Contributions are welcome! Please follow these guidelines:
-
-1. Fork the repository.
-2. Create your branch (`git checkout -b feature/AmazingFeature`).
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4. Push to the branch (`git push origin feature/AmazingFeature`).
-5. Open a Pull Request.
+*   **Dharmesh Singhal** - *Lead Architect & Developer* - [GitHub Profile](https://github.com/Drat47)
 
 ---
 *Empowering Indian Agriculture through AI & Precision Technology.*
